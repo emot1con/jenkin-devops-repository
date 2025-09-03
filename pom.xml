@@ -86,6 +86,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!-- Add ons -->
 		<dependency>
@@ -143,9 +149,14 @@
 		<!-- Add explicit Groovy dependency to resolve conflicts -->
 		<dependency>
 			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy-all</artifactId>
-			<version>2.5.8</version>
-			<type>pom</type>
+			<artifactId>groovy</artifactId>
+			<version>2.5.14</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-xml</artifactId>
+			<version>2.5.14</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -179,8 +190,10 @@
 					<!-- <argLine>-XX:-UseSplitVerifier ${jacoco.utAgentConfig}</argLine> -->
 					<!-- JDK 8 - bytecode verifier cannot be relaxed or disabled -->
 					<!-- to prevent runtime errors, OpenJPA tests are ignored -->
-					<argLine>-Dfile.encoding=UTF-8 ${jacoco.utAgentConfig}</argLine>
+					<argLine>-Dfile.encoding=UTF-8 -Dgroovy.use.classvalue=true ${jacoco.utAgentConfig}</argLine>
 					<useSystemClassLoader>false</useSystemClassLoader>
+					<forkCount>1</forkCount>
+					<reuseForks>false</reuseForks>
 					<excludes>
 						<!--<exclude>**/*ApplicationTests.java</exclude> -->
 						<exclude>**/RunCucumberIntegrationTestCase.java</exclude>
