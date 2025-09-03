@@ -6,9 +6,14 @@ pipeline {
 				echo "Build"
 			}
 		}
-		stage ("Test") {
+		stage ("Build Test") {
 			steps{
-				echo "Test"
+				echo "Build Test"
+			}
+		}
+		stage ("Staging Test") {
+			steps{
+				echo "Staging Test"
 			}
 		}
 		stage ("Integration Test") {
