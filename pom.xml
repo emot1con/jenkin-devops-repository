@@ -146,6 +146,19 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!-- Add Rest Assured JSON path support -->
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>json-path</artifactId>
+			<version>4.1.2</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- Add Gson for JSON mapping -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<!-- Add explicit Groovy dependency to resolve conflicts -->
 		<dependency>
 			<groupId>org.codehaus.groovy</groupId>
@@ -214,7 +227,10 @@
 				<version>${failsafe.version}</version>
 				<configuration>
 					<!-- JaCoCo must be enabled on target app container -->
-					<!--<argLine>${jacoco.itAgentConfig}</argLine> -->
+					<argLine>-Dfile.encoding=UTF-8 -Dgroovy.use.classvalue=true ${jacoco.itAgentConfig}</argLine>
+					<useSystemClassLoader>false</useSystemClassLoader>
+					<forkCount>1</forkCount>
+					<reuseForks>false</reuseForks>
 					<includes>
 						<!--<include>**/*ApplicationTests.java</include> -->
 						<include>**/*CucumberIntegrationTestCase.java</include>
