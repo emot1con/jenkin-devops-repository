@@ -1,9 +1,10 @@
-pipeline{
-	agent any
-	// agent { docker { image 'maven:3.6.3' } }	
-	stages{
+pipeline {
+	// agent any
+	agent { docker { image 'maven:3.6.3' } }
+	stages {
 		stage ("Build") {
 			steps{
+				echo "mvn --version"
 				echo "Build"
 			}
 		}
@@ -17,21 +18,22 @@ pipeline{
 				echo "Staging Test"
 			}
 		}
-		stage ("Prod Test"){
+		stage ("Integration Test") {
 			steps{
-				echo "Prod Test"
+				echo "Integration Test"
 			}
 		}
-	}
+	} 
+	
 	post {
-		always{
-			echo "Cleaning Up..."
+		always {
+			echo "Cleaning up..."
 		}
-		success{
-			echo "This build was successfully completed"
+		success {
+			echo "This build was successful!"
 		}
-		failure{
-			echo "This build has failed"
+		failure {
+			echo "This build failed."
 		}
 	}
 }
